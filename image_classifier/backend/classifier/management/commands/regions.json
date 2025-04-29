@@ -1,0 +1,586 @@
+[
+  {
+    "name": "Академический",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Алексеевский",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Алтуфьевский",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Арбат",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Аэропорт",
+    "district_short": "САО"
+  },
+  {
+    "name": "Бабушкинский",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Басманный",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Беговой",
+    "district_short": "САО"
+  },
+  {
+    "name": "Бескудниковский",
+    "district_short": "САО"
+  },
+  {
+    "name": "Бибирево",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Бирюлёво Восточное",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Бирюлёво Западное",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Богородское",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Братеево",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Бутырский",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Вешняки",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Внуково",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Войковский",
+    "district_short": "САО"
+  },
+  {
+    "name": "Восточное Дегунино",
+    "district_short": "САО"
+  },
+  {
+    "name": "Восточное Измайлово",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Восточный",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Выхино-Жулебино",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Гагаринский",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Головинский",
+    "district_short": "САО"
+  },
+  {
+    "name": "Гольяново",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Даниловский",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Дмитровский",
+    "district_short": "САО"
+  },
+  {
+    "name": "Донской",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Дорогомилово",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Замоскворечье",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Западное Дегунино",
+    "district_short": "САО"
+  },
+  {
+    "name": "Зюзино",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Зябликово",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Ивановское",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Измайлово",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Капотня",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Коньково",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Коптево",
+    "district_short": "САО"
+  },
+  {
+    "name": "Косино-Ухтомский",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Котловка",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Красносельский",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Крылатское",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Крюково",
+    "district_short": "ЗелАО"
+  },
+  {
+    "name": "Кузьминки",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Кунцево",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Куркино",
+    "district_short": "СЗАО"
+  },
+  {
+    "name": "Левобережный",
+    "district_short": "САО"
+  },
+  {
+    "name": "Лефортово",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Лианозово",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Ломоносовский",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Лосиноостровский",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Люблино",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Марфино",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Марьина Роща",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Марьино",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Матушкино",
+    "district_short": "ЗелАО"
+  },
+  {
+    "name": "Метрогородок",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Мещанский",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Митино",
+    "district_short": "СЗАО"
+  },
+  {
+    "name": "Можайский",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Молжаниновский",
+    "district_short": "САО"
+  },
+  {
+    "name": "Москворечье-Сабурово",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Нагатино-Садовники",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Нагатинский Затон",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Нагорный",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Некрасовка",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Нижегородский",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Ново-Переделкино",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Новогиреево",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Новокосино",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Обручевский",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Орехово-Борисово Северное",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Орехово-Борисово Южное",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Останкинский",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Отрадное",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Очаково-Матвеевское",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Перово",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Печатники",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Покровское-Стрешнево",
+    "district_short": "СЗАО"
+  },
+  {
+    "name": "Преображенское",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Пресненский",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Проспект Вернадского",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Раменки",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Ростокино",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Рязанский",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Савёлки",
+    "district_short": "ЗелАО"
+  },
+  {
+    "name": "Савёловский",
+    "district_short": "САО"
+  },
+  {
+    "name": "Свиблово",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Северное Бутово",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Северное Измайлово",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Северное Медведково",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Северное Тушино",
+    "district_short": "СЗАО"
+  },
+  {
+    "name": "Северный",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Силино",
+    "district_short": "ЗелАО"
+  },
+  {
+    "name": "Сокол",
+    "district_short": "САО"
+  },
+  {
+    "name": "Соколиная Гора",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Сокольники",
+    "district_short": "ВАО"
+  },
+  {
+    "name": "Солнцево",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Старое Крюково",
+    "district_short": "ЗелАО"
+  },
+  {
+    "name": "Строгино",
+    "district_short": "СЗАО"
+  },
+  {
+    "name": "Таганский",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Тверской",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Текстильщики",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Тёплый Стан",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Тимирязевский",
+    "district_short": "САО"
+  },
+  {
+    "name": "Тропарёво-Никулино",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Филёвский Парк",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Фили-Давыдково",
+    "district_short": "ЗАО"
+  },
+  {
+    "name": "Хамовники",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Ховрино",
+    "district_short": "САО"
+  },
+  {
+    "name": "Хорошёво-Мнёвники",
+    "district_short": "СЗАО"
+  },
+  {
+    "name": "Хорошёвский",
+    "district_short": "САО"
+  },
+  {
+    "name": "Царицыно",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Черёмушки",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Чертаново Северное",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Чертаново Центральное",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Чертаново Южное",
+    "district_short": "ЮАО"
+  },
+  {
+    "name": "Щукино",
+    "district_short": "СЗАО"
+  },
+  {
+    "name": "Южное Бутово",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Южное Медведково",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Южное Тушино",
+    "district_short": "СЗАО"
+  },
+  {
+    "name": "Южнопортовый",
+    "district_short": "ЮВАО"
+  },
+  {
+    "name": "Якиманка",
+    "district_short": "ЦАО"
+  },
+  {
+    "name": "Ярославский",
+    "district_short": "СВАО"
+  },
+  {
+    "name": "Ясенево",
+    "district_short": "ЮЗАО"
+  },
+  {
+    "name": "Троицк",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Щербинка",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Мосрентген",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Внуковское",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Вороновское",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Воскресенское",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Десёновское",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Киевский",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Клёновское",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Кокошкино",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Краснопахорское",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Марушкинское",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Михайлово-Ярцевское",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Московский",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Новофёдоровское",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Первомайское",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Роговское",
+    "district_short": "ТАО"
+  },
+  {
+    "name": "Рязановское",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Сосенское",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Филимонковское",
+    "district_short": "НАО"
+  },
+  {
+    "name": "Щаповское",
+    "district_short": "ТАО"
+  }
+]
