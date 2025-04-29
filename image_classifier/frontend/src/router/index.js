@@ -1,19 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
 import ImageClassifier from '../views/ImageClassifier.vue'
 
 const routes = [
-  { path: '/', component: Dashboard },
+  { path: '/', component: Home },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
-  { path: '/upload', name: 'ImageClassifier', component: ImageClassifier }
+  { path: '/dashboard', component: Dashboard },
+  { path: '/upload', component: ImageClassifier },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 export default router
