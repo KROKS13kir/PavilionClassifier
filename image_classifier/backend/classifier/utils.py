@@ -44,3 +44,17 @@ def generate_presigned_url(key, expires_in=3600):
         ExpiresIn=expires_in
     )
     return url
+
+
+def delete_from_s3(key):
+    s3 = boto3.client(
+        's3',
+        endpoint_url='https://storage.yandexcloud.net',
+        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+    )
+    try:
+        s3.delete_object(Bucket='pavilionphotos', Key=key)
+        print(f"✅ Удалено из S3: {key}")
+    except Exception as e:
+        print(f"❌ Ошибка при удалении {key}: {e}")

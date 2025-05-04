@@ -32,7 +32,7 @@ class PavilionCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = PavilionCard
         fields = [
-            'mpv_code', 'stop_name', 'street', 'district', 'region',
+            'id', 'mpv_code', 'stop_name', 'street', 'district', 'region',
             'pavilion_number', 'category', 'pavilion_class',
             'balance_holder', 'address', 'images'
         ]

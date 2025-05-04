@@ -2,10 +2,11 @@ from io import BytesIO
 
 from PIL import Image
 from django.core.files.storage import default_storage
+from rest_framework import generics, permissions
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
-from .models import ImageUpload
+from .models import ImageUpload, PavilionCard
 from .classifier import predict_image
 from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -16,7 +17,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import District, Region
-from .serializers import DistrictSerializer, RegionSerializer, PavilionCardSerializer
+from .serializers import DistrictSerializer, RegionSerializer, PavilionCardSerializer, ImageUploadSerializer
 
 
 @api_view(['GET'])
@@ -101,4 +102,19 @@ def predict_images(request):
         })
 
     return Response(results)
+
+class PavilionCardListCreateAPIView(generics.ListCreateAPIView):
+    queryset = PavilionCard.objects.all().prefetch_related('images')
+    serializer_class = PavilionCardSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ImageUploadRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ImageUpload.objects.all()
+    serializer_class = ImageUploadSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class PavilionCardRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
+    queryset = PavilionCard.objects.all().prefetch_related('images')
+    serializer_class = PavilionCardSerializer
+    permission_classes = [permissions.IsAuthenticated]
 

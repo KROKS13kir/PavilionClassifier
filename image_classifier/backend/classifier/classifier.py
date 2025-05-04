@@ -61,19 +61,20 @@ def predict_image(image_file):
 
 # Функция для проверки и обновления модели после дообучения
 def maybe_update_model():
-    global best_val_accuracy
-    if os.path.exists(os.path.join(BASE_DIR, "model", "last_val_accuracy.txt")):
-        with open(os.path.join(BASE_DIR, "model", "last_val_accuracy.txt"), 'r') as f:
+    global best_val_accuracy, model
+    last_acc_path = os.path.join(BASE_DIR, "model", "last_val_accuracy.txt")
+    if os.path.exists(last_acc_path):
+        with open(last_acc_path, 'r') as f:
             new_accuracy = float(f.read())
-
         if new_accuracy > best_val_accuracy:
             print(f"🚀 Новая модель лучше! ({new_accuracy:.4f} > {best_val_accuracy:.4f})")
             model.load_state_dict(torch.load(BEST_MODEL_PATH, map_location=device))
             best_val_accuracy = new_accuracy
-            with open(BEST_ACCURACY_PATH, 'w') as f:
-                f.write(str(best_val_accuracy))
-            print("✅ Модель обновлена!")
+            # перезаписываем файл best_val_accuracy.txt
+            with open(BEST_ACCURACY_PATH, 'w') as f2:
+                f2.write(str(best_val_accuracy))
+            print("✅ Модель в памяти Django обновлена на новые веса")
         else:
-            print(f"🔒 Новая модель хуже ({new_accuracy:.4f} <= {best_val_accuracy:.4f}), обновление отменено")
+            print(f"🔒 Новая модель не лучше ({new_accuracy:.4f} <= {best_val_accuracy:.4f}), пропускаем обновление")
     else:
-        print("❌ last_val_accuracy.txt не найден. Пропущено обновление модели.")
+        print("❌ last_val_accuracy.txt не найден, модель не обновлена")

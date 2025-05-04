@@ -3,6 +3,9 @@ from django.db import models
 
 from django.db import models
 
+from classifier.utils import delete_from_s3
+
+
 # classifier/models.py
 class District(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -44,7 +47,15 @@ class ImageUpload(models.Model):
     predicted_class = models.CharField(max_length=100, blank=True, null=True)
     confidence = models.FloatField(null=True, blank=True)
     confirmed_state = models.CharField(max_length=100, blank=True)
-    pavilion = models.ForeignKey('PavilionCard', on_delete=models.CASCADE, null=True, blank=True)
+    pavilion = models.ForeignKey('PavilionCard', on_delete=models.CASCADE, related_name='images', null=True, blank=True)
+
+    def delete(self, *args, **kwargs):
+        if self.image_url:
+            try:
+                delete_from_s3(self.image_url)
+            except Exception as e:
+                print(f"⚠️ Ошибка при удалении из S3: {e}")
+        super().delete(*args, **kwargs)
 
 
 
