@@ -49,9 +49,9 @@ num_epochs = 20
 # 🔹 1. Функция обработки изображения
 def process_image(image_path, output_path):
     with Image.open(image_path) as img:
+        print(f"{Path(image_path).name}: {img.size}")  # лог размера
         img = ImageOps.exif_transpose(img)
         img = img.convert("RGB")
-        img = img.resize(IMG_SIZE, Image.Resampling.LANCZOS)
         img.save(output_path, "JPEG", quality=95)
 
 # 🔹 2. Функция подготовки датасета (train/val)

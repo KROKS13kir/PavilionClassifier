@@ -8,6 +8,12 @@ import os
 
 # Определяем классы
 CLASS_NAMES = ['graffiti', 'no_repair', 'scheduled_repair', 'urgent_repair']
+LABEL_MAP = {
+    'graffiti':         'граффити',
+    'no_repair':        'не требует ремонта',
+    'scheduled_repair': 'плановый ремонт',
+    'urgent_repair':    'срочный ремонт',
+}
 
 # Устройство
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -57,7 +63,10 @@ def predict_image(image_file):
         probabilities = torch.nn.functional.softmax(output[0], dim=0).cpu()
 
     top_prob, top_class = torch.topk(probabilities, 1)
-    return CLASS_NAMES[top_class.item()], top_prob.item()
+    eng_label = CLASS_NAMES[top_class.item()]
+    rus_label = LABEL_MAP.get(eng_label, eng_label)
+    return rus_label, top_prob.item()
+
 
 # Функция для проверки и обновления модели после дообучения
 def maybe_update_model():

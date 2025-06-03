@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+
+import pytz
 from dotenv import load_dotenv
+from pytz import timezone
+
 load_dotenv()
 
 
@@ -25,12 +29,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ufafq-ar7ls3@(f8#h3z)0dmbx@tirwd5rn&-&jqpss3+#*$4#'
+SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-if-missing')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 
 # Application definition
@@ -43,14 +47,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'classifier',
-    'users',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
     'storages',
+    'telegram_bot',
 ]
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+#Telegram
+TELEGRAM_TOKEN      = os.getenv('TELEGRAM_TOKEN')
+TELEGRAM_USE_WEBHOOK = os.getenv('TELEGRAM_USE_WEBHOOK') == 'True'
+TELEGRAM_WEBHOOK_HOST = os.getenv('TELEGRAM_WEBHOOK_HOST')
+TELEGRAM_WEBHOOK_PATH = os.getenv('TELEGRAM_WEBHOOK_PATH')
+
+TELEGRAM_TZ = pytz.timezone("Europe/Moscow")
 
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
@@ -61,7 +73,7 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
 # Настройки Celery
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
@@ -91,7 +103,8 @@ MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
 
 ROOT_URLCONF = 'image_classifier.urls'
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'classifier.Employee'
+
 
 TEMPLATES = [
     {
@@ -118,13 +131,14 @@ WSGI_APPLICATION = 'image_classifier.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pavilion_audit',
-        'USER': 'AdminUser',
-        'PASSWORD': 'ADUSER',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME':     os.getenv('DB_NAME'),
+        'USER':     os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST':     os.getenv('DB_HOST', 'localhost'),
+        'PORT':     os.getenv('DB_PORT', '5432'),
     }
 }
+
 
 
 
