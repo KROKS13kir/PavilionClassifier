@@ -244,4 +244,15 @@ def build_app():
 
     return app
 
+if __name__ == "__main__":
+    import django
+    import os
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "image_classifier.settings")
+    django.setup()
+
+    app = build_app()
+    app.run_polling()
+
+
 

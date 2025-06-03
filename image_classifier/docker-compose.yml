@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: pavilion_audit
+      POSTGRES_USER: AdminUser
+      POSTGRES_PASSWORD: ADUSER
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - db
+      - redis
+    command: >
+      sh -c "
+        python manage.py migrate &&
+        gunicorn image_classifier.wsgi:application --bind 0.0.0.0:8000
+      "
+    ports:
+      - "8000:8000"
+
+  celery:
+    build:
+      context: ./backend
+    env_file:
+      - ./backend/.env
+    command: celery -A image_classifier worker --loglevel=info
+    depends_on:
+      - backend
+      - redis
+
+  telegram:
+    build:
+      context: ./backend
+    env_file:
+      - ./backend/.env
+    command: python -m telegram_bot.bot
+    depends_on:
+      - backend
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
