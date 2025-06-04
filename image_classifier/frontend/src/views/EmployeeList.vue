@@ -41,7 +41,6 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 
-const backendUrl = '/api'
 const employees = ref([])
 const districts = ref([])
 const regions = ref([])
@@ -51,8 +50,8 @@ const isAdmin = ref(false)
 
 const fetchMeta = async () => {
   const [dRes, rRes] = await Promise.all([
-    axios.get(`${backendUrl}/api/districts/`),
-    axios.get(`${backendUrl}/api/regions/`)
+    axios.get(`districts/`),
+    axios.get(`regions/`)
   ])
   districts.value = dRes.data
   regions.value = rRes.data
@@ -60,7 +59,7 @@ const fetchMeta = async () => {
 
 const fetchEmployees = async () => {
   loading.value = true
-  const { data } = await axios.get(`${backendUrl}/api/employees/`, {
+  const { data } = await axios.get(`employees/`, {
     headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
   })
   employees.value = data
@@ -80,14 +79,14 @@ const goToEmployee = id => {
 
 const deleteEmployee = async id => {
   if (!confirm('Удалить сотрудника?')) return
-  await axios.delete(`${backendUrl}/api/employees/${id}/`, {
+  await axios.delete(`employees/${id}/`, {
     headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
   })
   fetchEmployees()
 }
 
 const fetchCurrentUser = async () => {
-  const {data} = await axios.get(`${backendUrl}/api/me/`, {
+  const {data} = await axios.get(`me/`, {
     headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}
   })
   isAdmin.value = data.is_superuser

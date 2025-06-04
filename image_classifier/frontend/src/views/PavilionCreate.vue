@@ -89,7 +89,6 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-const backendUrl = '/api'
 const districts = ref([])
 const regions = ref([])
 const selectedFiles = ref([])
@@ -106,9 +105,9 @@ const currentIndex = ref(0)
 
 onMounted(async () => {
   const [d, r, c] = await Promise.all([
-    axios.get(`${backendUrl}/api/districts/`),
-    axios.get(`${backendUrl}/api/regions/`),
-    axios.get(`${backendUrl}/api/pavilion_choices/`)
+    axios.get(`districts/`),
+    axios.get(`regions/`),
+    axios.get(`pavilion_choices/`)
   ])
   districts.value = d.data
   regions.value = r.data

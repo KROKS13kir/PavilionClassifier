@@ -68,8 +68,6 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-// Базовый URL API
-const backendUrl = '/api'
 
 // Vue Router
 const router = useRouter()
@@ -94,7 +92,7 @@ const statusLabels = {
  */
 const fetchCurrentUser = async () => {
   try {
-    const { data } = await axios.get(`${backendUrl}/me/`, {
+    const { data } = await axios.get(`me/`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
     })
     isAdmin.value = data.is_superuser
@@ -109,10 +107,10 @@ const fetchCurrentUser = async () => {
 const fetchMeta = async () => {
   try {
     const [pRes, eRes] = await Promise.all([
-      axios.get(`${backendUrl}/pavilions/`, {
+      axios.get(`pavilions/`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
       }),
-      axios.get(`${backendUrl}/employees/`, {
+      axios.get(`employees/`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
       })
     ])
@@ -129,7 +127,7 @@ const fetchMeta = async () => {
 const fetchOrders = async () => {
   loading.value = true
   try {
-    const { data } = await axios.get(`${backendUrl}/repair-orders/`, {
+    const { data } = await axios.get(`repair-orders/`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
     })
     orders.value = data
@@ -173,7 +171,7 @@ const editOrder = id => {
 const deleteOrder = async id => {
   if (!confirm('Удалить наряд?')) return
   try {
-    await axios.delete(`${backendUrl}/repair-orders/${id}/`, {
+    await axios.delete(`repair-orders/${id}/`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
     })
     await fetchOrders()

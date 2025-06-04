@@ -86,7 +86,6 @@ import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-const backendUrl = '/api'
 const pavilions = ref([])
 const districts = ref([])
 const regions = ref([])
@@ -102,7 +101,7 @@ const router = useRouter()
 const fetchPavilions = async () => {
   loading.value = true
   try {
-    const {data} = await axios.get(`${backendUrl}/api/pavilions/`, {
+    const {data} = await axios.get(`pavilions/`, {
       headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}
     })
     pavilions.value = data
@@ -116,8 +115,8 @@ const fetchPavilions = async () => {
 const fetchMetaData = async () => {
   try {
     const [dRes, rRes] = await Promise.all([
-      axios.get(`${backendUrl}/api/districts/`),
-      axios.get(`${backendUrl}/api/regions/`)
+      axios.get(`districts/`),
+      axios.get(`regions/`)
     ])
     districts.value = dRes.data
     regions.value = rRes.data
@@ -167,7 +166,7 @@ const goToPavilion = (id) => {
 const deletePavilion = async (id) => {
   if (!confirm('Удалить павильон?')) return;
   try {
-    await axios.delete(`${backendUrl}/api/pavilions/${id}/`, {
+    await axios.delete(`pavilions/${id}/`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
     });
     await fetchPavilions();

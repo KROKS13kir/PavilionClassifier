@@ -29,6 +29,11 @@
       </div>
 
       <div class="form-group">
+        <label>Токен для входа в Телеграм</label>
+        <input v-model="employee.telegram_token" />
+      </div>
+
+      <div class="form-group">
         <label>Должность</label>
         <input v-model="employee.position" required />
       </div>
@@ -77,7 +82,6 @@ import { ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
-const backendUrl = '/api'
 const route = useRoute()
 const router = useRouter()
 const id = ref(route.params.id)
@@ -92,6 +96,7 @@ const employee = ref({
   district: null,
   region: null,
   telegram_chat_id: '',
+  telegram_token: '',
   is_staff: false,
   is_superuser: false,
   is_active: true
@@ -103,8 +108,8 @@ const loading = ref(true)
 
 const fetchMeta = async () => {
   const [dRes, rRes] = await Promise.all([
-    axios.get(`${backendUrl}/api/districts/`),
-    axios.get(`${backendUrl}/api/regions/`)
+    axios.get(`districts/`),
+    axios.get(`regions/`)
   ])
   districts.value = dRes.data
   regions.value   = rRes.data
@@ -115,7 +120,7 @@ const fetchEmployee = async () => {
     loading.value = false
     return
   }
-  const { data } = await axios.get(`${backendUrl}/api/employees/${id.value}/`, {
+  const { data } = await axios.get(`employees/${id.value}/`, {
     headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
   })
   employee.value = data
@@ -134,9 +139,9 @@ const saveEmployee = async () => {
   }
 
   if (isNew.value) {
-    await axios.post(`${backendUrl}/api/employees/`, dataToSend, {headers})
+    await axios.post(`employees/`, dataToSend, {headers})
   } else {
-    await axios.put(`${backendUrl}/api/employees/${id.value}/`, dataToSend, {headers})
+    await axios.put(`employees/${id.value}/`, dataToSend, {headers})
   }
   router.push({name: 'EmployeeList'})
 }
@@ -144,7 +149,7 @@ const saveEmployee = async () => {
 
 const deleteEmployee = async () => {
   if (!confirm('Удалить сотрудника?')) return
-  await axios.delete(`${backendUrl}/api/employees/${id.value}/`, {
+  await axios.delete(`employees/${id.value}/`, {
     headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
   })
   router.push({ name: 'Employees' })

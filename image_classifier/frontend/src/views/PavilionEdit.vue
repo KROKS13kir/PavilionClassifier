@@ -99,7 +99,7 @@ import { useRoute } from 'vue-router'
 import axios from 'axios'
 import ImageClassifier from '@/components/ImageClassifier.vue'
 
-const backendUrl = '/api'
+
 const route = useRoute()
 const id = ref(null)
 const pavilion = ref({ images: [] })
@@ -165,9 +165,9 @@ const formFields = ref([
 
 async function fetchMeta() {
   const [dRes, rRes, cRes] = await Promise.all([
-    axios.get(`${backendUrl}/api/districts/`),
-    axios.get(`${backendUrl}/api/regions/`),
-    axios.get(`${backendUrl}/api/pavilion_choices/`)
+    axios.get(`districts/`),
+    axios.get(`regions/`),
+    axios.get(`pavilion_choices/`)
   ])
   districts.value = dRes.data
   regions.value = rRes.data

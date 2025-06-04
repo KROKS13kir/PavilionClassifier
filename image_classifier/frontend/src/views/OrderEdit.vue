@@ -133,7 +133,7 @@ import {ref, computed, watch, onMounted} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import axios from 'axios'
 
-const API = '/api'
+
 const router = useRouter()
 const route = useRoute()
 
@@ -168,7 +168,7 @@ const priorityLabels = {low: 'Низкий', medium: 'Средний', high: 'В
 
 async function fetchCurrentUser() {
   try {
-    const {data} = await axios.get(`${API}/me/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}})
+    const {data} = await axios.get(`me/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}})
     isAdmin.value = data.is_superuser
   } catch {
     isAdmin.value = false
@@ -179,9 +179,9 @@ async function fetchMeta() {
   loading.value = true
   try {
     const [pRes, eRes, oRes] = await Promise.all([
-      axios.get(`${API}/pavilions/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}}),
-      axios.get(`${API}/employees/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}}),
-      axios.get(`${API}/repair-orders/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}})
+      axios.get(`pavilions/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}}),
+      axios.get(`employees/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}}),
+      axios.get(`repair-orders/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}})
     ])
     pavilions.value = pRes.data
     employees.value = eRes.data
@@ -200,7 +200,7 @@ async function fetchOrder() {
   }
   loading.value = true
   try {
-    const {data} = await axios.get(`${API}/repair-orders/${props.id}/`, {
+    const {data} = await axios.get(`repair-orders/${props.id}/`, {
       headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}
     })
     order.value = {
@@ -231,11 +231,11 @@ async function saveOrder() {
   }
   try {
     const response = isCreateMode.value
-        ? await axios.post(`${API}/repair-orders/`, order.value, {headers})
-        : await axios.patch(`${API}/repair-orders/${props.id}/`, order.value, {headers})
+        ? await axios.post(`repair-orders/`, order.value, {headers})
+        : await axios.patch(`repair-orders/${props.id}/`, order.value, {headers})
     const finalStatus = response.data.status
     if (finalStatus === 'done') {
-      await axios.patch(`${API}/pavilions/${order.value.pavilion}/`, {requires_repair: false}, {headers})
+      await axios.patch(`pavilions/${order.value.pavilion}/`, {requires_repair: false}, {headers})
     }
     router.push({name: 'OrderList'})
   } catch (e) {
@@ -246,7 +246,7 @@ async function saveOrder() {
 async function deleteOrder() {
   if (!confirm('Удалить наряд?')) return
   try {
-    await axios.delete(`${API}/repair-orders/${props.id}/`, {
+    await axios.delete(`repair-orders/${props.id}/`, {
       headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}
     })
     router.push({name: 'OrderList'})
@@ -274,7 +274,7 @@ const workload = computed(() => ordersList.value.filter(o => o.employee?.id === 
 watch(() => order.value.pavilion, async (newVal) => {
   if (newVal && isCreateMode.value) {
     try {
-      const res = await axios.get(`${API}/pavilions/${newVal}/available_images/`, {
+      const res = await axios.get(`pavilions/${newVal}/available_images/`, {
         headers: {Authorization: `Bearer ${localStorage.getItem('access')}`}
       })
       availableImages.value = res.data
