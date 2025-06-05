@@ -62,8 +62,8 @@ services:
     depends_on:
       - backend
     volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
+      - ./certbot-etc:/etc/letsencrypt:ro
+      - ./certbot-var:/var/lib/letsencrypt:ro
 
   certbot:
     image: certbot/certbot
