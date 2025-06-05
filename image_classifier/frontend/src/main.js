@@ -12,6 +12,7 @@ import { faHome, faSignInAlt, faSignOutAlt, faUserCircle,
 
 
 axios.defaults.baseURL = '/api'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const app = createApp(App)
 const pinia = createPinia()
