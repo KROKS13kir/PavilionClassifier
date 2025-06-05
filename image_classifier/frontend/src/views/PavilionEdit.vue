@@ -221,7 +221,7 @@ async function fetchMeta() {
 
 async function fetchPavilion() {
   const { data } = await axios.get(
-    `${backendUrl}/api/pavilions/${id.value}/`,
+    `pavilions/${id.value}/`,
     { headers: { Authorization: `Bearer ${localStorage.getItem('access')}` } }
   )
 
@@ -234,7 +234,7 @@ async function fetchPavilion() {
 
 async function savePavilion() {
   await axios.patch(
-    `${backendUrl}/api/pavilions/${id.value}/`,
+    `pavilions/${id.value}/`,
     pavilion.value,
     { headers: { Authorization: `Bearer ${localStorage.getItem('access')}` } }
   )
@@ -243,7 +243,7 @@ async function savePavilion() {
 
 async function saveImage(img) {
   await axios.patch(
-    `${backendUrl}/api/images/${img.id}/`,
+    `images/${img.id}/`,
     { confirmed_state: img.confirmed_state },
     { headers: { Authorization: `Bearer ${localStorage.getItem('access')}` } }
   )
@@ -253,7 +253,7 @@ async function saveImage(img) {
 async function deleteImage(imageId) {
   if (!confirm('Удалить изображение?')) return
   await axios.delete(
-    `${backendUrl}/api/images/${imageId}/`,
+    `images/${imageId}/`,
     { headers: { Authorization: `Bearer ${localStorage.getItem('access')}` } }
   )
   await fetchPavilion()
@@ -278,7 +278,7 @@ async function uploadConfirmed() {
   fd.append('pavilion', id.value)
 
   try {
-    await axios.post(`${backendUrl}/api/images/upload/`, fd, {
+    await axios.post(`images/upload/`, fd, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${localStorage.getItem('access')}`

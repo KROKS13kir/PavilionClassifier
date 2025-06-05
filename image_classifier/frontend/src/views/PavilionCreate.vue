@@ -140,7 +140,7 @@ const removeFile = i => { selectedFiles.value.splice(i, 1); previewImages.value.
 const handlePredict = async () => {
   const fd = new FormData()
   selectedFiles.value.forEach(f => fd.append('images', f))
-  const { data } = await axios.post(`${backendUrl}/api/predict/`, fd, {
+  const { data } = await axios.post(`predict/`, fd, {
     headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${localStorage.getItem('access')}` }
   })
   previewImages.value = data.map(pred => {
@@ -154,7 +154,7 @@ const handleSubmit = async () => {
   Object.entries(form.value).forEach(([k, v]) => fd.append(k, v))
   previewImages.value.forEach((img, i) => { fd.append(`images[${i}].image`, img.file); fd.append(`images[${i}].confirmed_state`, img.confirmed_state) })
   try {
-    await axios.post(`${backendUrl}/api/pavilion/`, fd, {
+    await axios.post(`pavilion/`, fd, {
       headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${localStorage.getItem('access')}` }
     })
     // Показываем уведомление об успехе
