@@ -76,12 +76,12 @@ services:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
       - ./frontend/dist:/var/www/html
-    entrypoint: >
-      sh -c "certbot certonly --webroot -w /var/www/html \
-        --email kirill.kornienko2018@yandex.ru \
-        --agree-tos \
-        --no-eff-email \
-        -d pavilion-classifier.ru -d www.pavilion-classifier.ru"
+    command: certonly --webroot -w /var/www/html \
+      --email kirill.kornienko2018@yandex.ru \
+      --agree-tos \
+      --no-eff-email \
+      -d pavilion-classifier.ru -d www.pavilion-classifier.ru
+
 
 volumes:
   postgres_data:
