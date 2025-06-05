@@ -6,7 +6,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Этап 2: nginx + фронт + проксирование API
+# Этап 2: nginx + фронт
 FROM nginx:stable-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY /nginx.conf /etc/nginx/nginx.conf
