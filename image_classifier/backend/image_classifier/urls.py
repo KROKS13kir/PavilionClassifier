@@ -23,7 +23,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('classifier.api_urls')),  # ✅ добавим API загрузки сюда
+    path('api/', include('classifier.api_urls')),
     path("", include("telegram_bot.urls")),
 ]
 
