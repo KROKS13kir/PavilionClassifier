@@ -48,7 +48,7 @@ services:
       context: ./backend
     env_file:
       - ./backend/.env
-    command: python -m telegram_bot.bot
+    command: python manage.py runbot
     depends_on:
       - backend
 

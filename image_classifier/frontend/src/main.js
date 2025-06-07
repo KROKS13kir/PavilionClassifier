@@ -27,3 +27,10 @@ app.component('fa', FontAwesomeIcon)
 
 app.use(router)
 app.mount('#app')
+
+
+
+
+
+
+
