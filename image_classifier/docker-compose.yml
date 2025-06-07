@@ -44,13 +44,12 @@ services:
       - redis
 
   telegram:
-    build:
-      context: ./backend
+    build: ./backend
     env_file:
       - ./backend/.env
-    command: python manage.py runbot
     depends_on:
       - backend
+    command: python manage.py runbot
 
   frontend:
     build:
