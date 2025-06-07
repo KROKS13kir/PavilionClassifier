@@ -51,6 +51,8 @@ services:
     command: python manage.py runbot
     depends_on:
       - backend
+    ports:
+      - "8443:8443"
 
   frontend:
     build:
