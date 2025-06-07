@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from telegram_bot.bot import build_app
 from django.conf import settings
+import os
 
 class Command(BaseCommand):
     help = "Запуск Telegram-бота"
