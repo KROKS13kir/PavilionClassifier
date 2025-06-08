@@ -25,12 +25,18 @@ jobs:
 
       - name: Build & Push Backend
         run: |
-          docker build -t $BACKEND_REPO:$TAG -f backend/Dockerfile backend
+          docker build \
+            -t $BACKEND_REPO:$TAG \
+            -f image_classifier/backend/Dockerfile \
+            image_classifier/backend
           docker push $BACKEND_REPO:$TAG
 
       - name: Build & Push Frontend
         run: |
-          docker build -t $FRONTEND_REPO:$TAG -f frontend/Dockerfile frontend
+          docker build \
+            -t $FRONTEND_REPO:$TAG \
+            -f frontend/Dockerfile \
+            frontend
           docker push $FRONTEND_REPO:$TAG
 
   deploy:
