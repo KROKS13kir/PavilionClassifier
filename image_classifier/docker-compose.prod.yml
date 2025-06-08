@@ -15,9 +15,8 @@ services:
 
   backend:
     image: kroks/pavilion_audit-backend:${TAG}
-    # Указываем реальный путь к .env
     env_file:
-      - ./image_classifier/backend/.env
+      - ./backend/.env
     depends_on:
       - db
       - redis
@@ -27,7 +26,7 @@ services:
   celery:
     image: kroks/pavilion_audit-backend:${TAG}
     env_file:
-      - ./image_classifier/backend/.env
+      - ./backend/.env
     command: celery -A image_classifier worker --loglevel=info
     depends_on:
       - redis
@@ -35,7 +34,7 @@ services:
   telegram:
     image: kroks/pavilion_audit-backend:${TAG}
     env_file:
-      - ./image_classifier/backend/.env
+      - ./backend/.env
     environment:
       - PORT=8443
     command: python manage.py runbot
