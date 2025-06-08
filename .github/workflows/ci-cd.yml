@@ -1,3 +1,43 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  BACKEND_REPO: kroks/pavilion_audit-backend
+  FRONTEND_REPO: kroks/pavilion_audit-frontend
+  TAG: ${{ github.ref_name }}-${{ github.run_id }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push Backend
+        run: |
+          docker build \
+            -t $BACKEND_REPO:$TAG \
+            -f image_classifier/backend/Dockerfile \
+            image_classifier/backend
+          docker push $BACKEND_REPO:$TAG
+
+      - name: Build & Push Frontend
+        run: |
+          docker build \
+            -t $FRONTEND_REPO:$TAG \
+            -f image_classifier/frontend/Dockerfile \
+            image_classifier
+          docker push $FRONTEND_REPO:$TAG
+
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
