@@ -34,8 +34,9 @@ jobs:
           docker build \
             -t $FRONTEND_REPO:$TAG \
             -f image_classifier/frontend/Dockerfile \
-            image_classifier/frontend
+            image_classifier
           docker push $FRONTEND_REPO:$TAG
+  
 
   deploy:
     needs: build-and-push
