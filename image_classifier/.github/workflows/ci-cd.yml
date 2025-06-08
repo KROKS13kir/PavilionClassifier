@@ -1,0 +1,69 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  BACKEND_REPO: kroks/pavilion_audit-backend
+  FRONTEND_REPO: kroks/pavilion_audit-frontend
+  TAG: ${{ github.ref_name }}-${{ github.run_id }}
+
+jobs:
+  build-and-push:
+    name: Build & Push Docker Images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push Backend
+        run: |
+          docker build -t $BACKEND_REPO:$TAG -f backend/Dockerfile backend
+          docker push $BACKEND_REPO:$TAG
+
+      - name: Build & Push Frontend
+        run: |
+          docker build -t $FRONTEND_REPO:$TAG -f frontend/Dockerfile frontend
+          docker push $FRONTEND_REPO:$TAG
+
+  deploy:
+    name: Deploy to Server
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Prepare deploy tag file
+        run: echo "TAG=$TAG" > deploy.env
+
+      - name: Copy files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: |
+            docker-compose.prod.yml
+            deploy.env
+          target: /home/${{ secrets.SERVER_USER }}/PavilionClassifier
+          strip_components: 0
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.SERVER_USER }}/PavilionClassifier
+            export $(cat deploy.env)
+            docker-compose -f docker-compose.prod.yml pull
+            docker-compose -f docker-compose.prod.yml up -d --remove-orphans

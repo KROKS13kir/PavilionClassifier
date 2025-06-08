@@ -1,0 +1,73 @@
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: pavilion_audit
+      POSTGRES_USER: AdminUser
+      POSTGRES_PASSWORD: ADUSER
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+
+  backend:
+    image: kroks/pavilion_audit-backend:${TAG}
+    # Указываем реальный путь к .env
+    env_file:
+      - ./image_classifier/backend/.env
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+
+  celery:
+    image: kroks/pavilion_audit-backend:${TAG}
+    env_file:
+      - ./image_classifier/backend/.env
+    command: celery -A image_classifier worker --loglevel=info
+    depends_on:
+      - redis
+
+  telegram:
+    image: kroks/pavilion_audit-backend:${TAG}
+    env_file:
+      - ./image_classifier/backend/.env
+    environment:
+      - PORT=8443
+    command: python manage.py runbot
+    depends_on:
+      - backend
+    ports:
+      - "8443:8443"
+
+  frontend:
+    image: kroks/pavilion_audit-frontend:${TAG}
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certbot-etc:/etc/letsencrypt:ro
+      - ./certbot-var:/var/lib/letsencrypt:ro
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - ./frontend/dist:/var/www/html
+    entrypoint: >
+      sh -c "trap exit TERM;\
+             while :; do\
+               certbot renew --webroot -w /var/www/html && sleep 12h;\
+             done"
+
+volumes:
+  postgres_data:
+  certbot-etc:
+  certbot-var:
