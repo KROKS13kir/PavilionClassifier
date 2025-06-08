@@ -13,8 +13,7 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -35,20 +34,19 @@ jobs:
           docker build \
             -t $FRONTEND_REPO:$TAG \
             -f image_classifier/frontend/Dockerfile \
-            image_classifier
+            image_classifier/frontend
           docker push $FRONTEND_REPO:$TAG
 
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Prepare TAG file
         run: echo "TAG=$TAG" > deploy.env
 
-      - name: Copy prod-compose + deploy.env to server
+      - name: Copy compose + tag to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -58,7 +56,7 @@ jobs:
             image_classifier/docker-compose.prod.yml
             deploy.env
           target: /home/${{ secrets.SERVER_USER }}/PavilionClassifier
-          strip_components: 1
+          strip_components: 0
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
@@ -67,7 +65,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /home/${{ secrets.SERVER_USER }}/PavilionClassifier
-            export $(cat deploy.env)
+            cd /home/${{ secrets.SERVER_USER }}/PavilionClassifier/image_classifier
+            export $(cat ../deploy.env)
             docker-compose -f docker-compose.prod.yml pull
             docker-compose -f docker-compose.prod.yml up -d --remove-orphans
