@@ -59,6 +59,7 @@ jobs:
           target: /home/${{ secrets.SERVER_USER }}/PavilionClassifier
           strip_components: 0
 
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
         with:
