@@ -52,18 +52,24 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          command_timeout: "60m"   # ждем до 60 минут на выполнение скрипта
+          command_timeout: "60m"
           script: |
             cd /home/${{ secrets.SERVER_USER }}/PavilionClassifier
             git pull origin main
-            
+
+            # очищаем старые контейнеры (и сети/тома), чтобы подхватились новые сертификаты
+            cd image_classifier
+            docker-compose -f docker-compose.prod.yml down
+
+            # чистим неиспользуемые образы и билдер-кеш
             docker image prune -a -f
             docker builder prune -f
 
             export TAG=${{ github.ref_name }}-${{ github.run_id }}
-            cd image_classifier
 
+            # подтягиваем свежие образы и поднимаем сервисы
             docker-compose -f docker-compose.prod.yml pull backend frontend
             docker-compose -f docker-compose.prod.yml up -d --no-deps --build backend frontend
+      
   
   
